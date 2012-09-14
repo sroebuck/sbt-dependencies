@@ -12,7 +12,7 @@ class MavenStuffTest extends FunSuite with Logging {
 
   test("Something") {
     val (group, artifact, version) = testLibraries(0)
-    logger.info(MavenStuff.artifacts(repositories, group, artifact, Some(Version(version))).toString())
+    logger.info("\n" + MavenStuff.artifacts(repositories, group, artifact, Some(Version(version))).sorted.mkString("\n"))
   }
 
 

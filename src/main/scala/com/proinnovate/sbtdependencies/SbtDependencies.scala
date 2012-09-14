@@ -22,12 +22,14 @@ object SbtDependencies extends Plugin {
         modules ← modulesOpt
         module ← modules
       } {
-        println(module)
         val group = module.organization
         val artifact = module.name
         val version = module.revision
-        val artifacts = MavenStuff.artifacts(repositories, group, artifact, versionOpt = Some(Version(version)))
-        println(artifacts.mkString("  ", "\n  ", "  "))
+        val artifacts = MavenStuff.artifacts(repositories, group, artifact, Some(Version(version)))
+        if (artifacts.size > 0) {
+          println(module)
+          println(artifacts.toSet.toSeq.sorted.mkString("  ", "\n  ", "  "))
+        }        
       }
       state
     }
@@ -37,7 +39,6 @@ object SbtDependencies extends Plugin {
       Seq(
         "http://repo.typesafe.com/typesafe/releases/",
         "http://repo.typesafe.com/typesafe/snapshots/",
-        "http://www.scala-tools.org/repo-snapshots/",
         "http://oss.sonatype.org/content/repositories/releases/",
         "http://oss.sonatype.org/content/repositories/snapshots/"
       ).map(new URL(_))

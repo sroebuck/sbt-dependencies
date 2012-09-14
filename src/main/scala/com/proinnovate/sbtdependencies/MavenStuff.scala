@@ -15,7 +15,7 @@ object MavenStuff extends Logging {
           v <- a.versionOpt
           rv <- versionOpt
         } yield {
-          SemVerOrdering.compare(rv, v) <= 0
+          SemVerOrdering.compare(rv, v) < 0
         }
         r.getOrElse(false)
     }
