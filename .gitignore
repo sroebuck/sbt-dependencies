@@ -1,0 +1,7 @@
+~*
+/.idea/
+/.idea_modules/
+/hs_err_pid*
+/project/project/
+/project/target/
+/target
