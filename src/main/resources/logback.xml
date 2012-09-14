@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2010. ProInnovate Limited
+  -->
+
+<configuration scan="${scan-for-changes}">
+
+    <conversionRule conversionWord="clevel" converterClass="com.proinnovate.logback.LogbackColorLevelConverter" />
+    <conversionRule conversionWord="cstart" converterClass="com.proinnovate.logback.LogbackColorLevelStartConverter" />
+    <conversionRule conversionWord="cend" converterClass="com.proinnovate.logback.LogbackColorLevelEndConverter" />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+        <pattern>%cstart%date{dd/HH:mm:ss.SSS} %1.-1level %-45.45(%18.18thread %26.26logger{0})| %message %xException%n%cend</pattern>
+    </encoder>
+  </appender>
+
+    <!--<logger name="bootstrap.liftweb.AltLiftFilter" level="info" />-->
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

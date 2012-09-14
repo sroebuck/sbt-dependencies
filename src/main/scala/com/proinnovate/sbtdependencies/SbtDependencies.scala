@@ -2,6 +2,7 @@ package com.proinnovate.sbtdependencies
 
 import sbt._
 import Keys._
+import semverfi.Version
 
 object SbtDependencies extends Plugin {
 
@@ -25,7 +26,7 @@ object SbtDependencies extends Plugin {
         val group = module.organization
         val artifact = module.name
         val version = module.revision
-        val artifacts = MavenStuff.Artifacts(repositories, group, artifact, version)
+        val artifacts = MavenStuff.artifacts(repositories, group, artifact, versionOpt = Some(Version(version)))
         println(artifacts.mkString("  ", "\n  ", "  "))
       }
       state
