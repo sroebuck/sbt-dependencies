@@ -21,3 +21,40 @@ libraryDependencies ++= Seq(
   "me.lessis" %% "semverfi" % "0.2.0-SNAPSHOT",
   "org.scalatest" %% "scalatest" % "1.8" % "test"
 )
+
+// Sonatype publishing settings:
+
+publishMavenStyle := true
+
+publishTo <<= version { (v: String) =>
+  val nexus = "https://oss.sonatype.org/"
+  if (v.trim.endsWith("SNAPSHOT")) 
+    Some("snapshots" at nexus + "content/repositories/snapshots") 
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
+
+publishArtifact in Test := false
+
+pomIncludeRepository := { _ => false }
+
+pomExtra := (
+  <url>https://github.com/sroebuck/sbt-dependencies</url>
+  <licenses>
+    <license>
+      <name>BSD-style</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:sroebuck/sbt-dependencies.git</url>
+    <connection>scm:git:git@github.com:sroebuck/sbt-dependencies.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>sroebuck</id>
+      <name>Stuart Roebuck</name>
+      <url>https://github.com/sroebuck</url>
+    </developer>
+  </developers>)
