@@ -4,18 +4,18 @@ import java.net.URL
 import scalax.io.JavaConverters._
 import java.io.FileNotFoundException
 import com.weiglewilczek.slf4s.Logging
-import semverfi.{SemVerOrdering, SemVersion, Version}
+import semverfi.{SemVersion, Version}
 
 object MavenStuff extends Logging {
 
   def artifacts(repositories: Seq[URL], group: String, artifact: String, versionOpt: Option[SemVersion] = None): Seq[Artifact] = {
     fullArtifactNames(repositories, group, artifact).filter {
       a =>
-        val r = for {
+        val r: Option[Boolean] = for {
           v <- a.versionOpt
           rv <- versionOpt
         } yield {
-          SemVerOrdering.compare(rv, v) < 0
+          rv < v
         }
         r.getOrElse(false)
     }

@@ -17,11 +17,11 @@ case class Artifact(group: String, name: String, versionOpt: Option[SemVersion] 
       if (nameCompare != 0) nameCompare
       else {
         val versionCompare: Int = this.versionOpt.flatMap(thisv => that.versionOpt.map(thatv =>
-          SemVerOrdering.compare(thisv, thatv))).getOrElse(0)
+          thisv.compare(thatv))).getOrElse(0)
         if (versionCompare != 0) versionCompare
         else {
           this.scalaVersionOpt.flatMap(thisv => that.scalaVersionOpt.map(thatv =>
-            SemVerOrdering.compare(thisv, thatv))).getOrElse(0)
+            thisv.compare(thatv))).getOrElse(0)
         }
       }
     }
